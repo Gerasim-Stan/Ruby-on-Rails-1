@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Week 1
 
 Hello, and welcome to the first week of our humble little Ruby on Rails class.
@@ -46,3 +47,10 @@ gem install rails
 [Sparse Matrix]: https://github.com/HackBulgaria/Ruby-on-Rails-1/tree/master/week1/1-sparse-matrix
 [Enums]: https://github.com/HackBulgaria/Ruby-on-Rails-1/tree/master/week1/2-enums
 [Active Support]: https://github.com/HackBulgaria/Ruby-on-Rails-1/tree/master/week1/3-active-support
+=======
+# Prelude
+
+We have a [website]! Don't forget to visit it for news and lectures.
+
+[website]: http://coreruby.github.io
+>>>>>>> 7e43a7f9e04cb94de189655773d19015f0dd2b8d
