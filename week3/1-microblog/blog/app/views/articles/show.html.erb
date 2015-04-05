@@ -1,8 +1,13 @@
 <p>
+  <strong>Date:</strong>
+  <%= @article.created_at.strftime("%B %e %Y") %>
+</p>
+
+<p>
   <strong>Title:</strong>
   <%= @article.title %>
 </p>
- 
+
 <p>
   <strong>Text:</strong>
   <%= @article.text %>
