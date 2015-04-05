@@ -18,17 +18,20 @@ params = {}
 params[(ids += 1).to_s] = Post.new('Wee', 'Amazing blog post! Beware, peasants!')
 p params
 get '/' do
-  erb :index
-  # 'Hello world!'
+  erb :index, :locals => {:params => params}
 end
 
-get '/new/' do
-
+get '/new' do
+  erb :new, :locals => {:params => params, :post_id => (ids += 1)}
 end
 
-get '/post/:id' do |id|
+post '/posts/:post_id' do
+  "#{request.POST}"
+end
+
+get '/posts/:id' do |id|
   return "There's no post with #{id} for id present, m'lady *tips fedora*." if params[id].nil?
-  # "#{params[id].title} #{params[id].body}"
+  "#{params[id].title}\n #{params[id].body}"
 end
 
 get '/posts' do

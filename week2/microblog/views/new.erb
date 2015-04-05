@@ -1,0 +1,22 @@
+<html>
+<head>
+  <link type="text/css" href="css/bootstrap.css" rel="stylesheet">
+  <link type="text/css" rel="stylesheet"
+    a.btn {
+    display: block;
+    padding: 10px;
+    background-color: red;
+    }>
+  <script src="js/bootstrap.js">
+  _386 = { onePass: true, speedFactor: 1.25 };</script>
+</head>
+
+<body>
+  <form method="post" action="/posts/<%= post_id %>">
+    <input type="text" name ="title" style="margin: 100px 10px 10px 50px; text-align:left; width: 400; height: 30">
+    <br />
+    <textarea name="body" type="text" style="margin: 10px 0px 50px 50px; text-align:left; width: 400px; height: 500px"></textarea>
+    <input type="submit" value="Create Post">
+  </form>
+</body>
+</html>
