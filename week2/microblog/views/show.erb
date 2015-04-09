@@ -14,16 +14,18 @@
 </head>
 
 <body>
-  <% posts.each do |p| %>
-    <div class="page-header" name ="title" style="margin: 20px 10px 10px 50px; text-align:left; width: 500px">
-      <%= p[1].title %>
+  <div class="page-header" name ="title" style="margin: 20px 10px 10px 50px; text-align:left; width: 500px">
+    <%= post.title %>
+  </div>
+  <br />
+  <div class="lead" name="bodey" style="margin: 10px 10px 0px 50px; text-align:left">
+    <%= post.body %>
+  </div>
+  <br />
+  <form method="delete" action="/<%= id %>">
+    <div style="margin: 0px; padding: 0px">
+      <input name="_method" type="button" value="delete">
     </div>
-    <br />
-    <div class="lead" name="bodey" style="margin: 10px 10px 0px 50px; text-align:left">
-      <%= p[1].body %>
-    </div>
-    <br />
-  <% end %>
-  <!-- <input type="submit" style="margin: 0px 0px 50px 50px;" value="Create Post"> -->
+  </form>
 </body>
 </html>
