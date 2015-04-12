@@ -1,0 +1,26 @@
+<html>
+<head>
+  <link type="text/css" href="/css/bootstrap.css" rel="stylesheet">
+  <link type="text/css" rel="stylesheet"
+    a.btn {
+    display: block;
+    padding: 10px;
+    background-color: red;
+    }>
+  <script src="/js/bootstrap.js">
+  _386 = { onePass: true, speedFactor: 1.25 };</script>
+</head>
+
+<body>
+  <% if post %>
+    <p>Are you sure you want to delete the post:&nbsp;<%= post.title %>&nbsp;?</p>
+    <form action="/<%= id %>" method="POST">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" value="Yes, Delete it!">
+      <a href="/<%= id %>">Cancel</a>
+    </form>
+  <% else %>
+    <p>Note not found</p>
+  <% end %>
+</body>
+</html>

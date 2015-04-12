@@ -22,9 +22,9 @@
     <%= post.body %>
   </div>
   <br />
-  <form method="delete" action="/<%= id %>">
-    <div style="margin: 0px; padding: 0px">
-      <input name="_method" type="button" value="delete">
+  <form method="post" action="/<%= id %>">
+    <div style="margin: 10px 10px 0px 50px; text-align:left">
+      <p><a type="button" href="/<%= id %>/delete">Delete</a></p>
     </div>
   </form>
 </body>
