@@ -1,6 +1,4 @@
 class ArticlesController < ApplicationController
-  http_basic_authenticate_with name: "d", password: "d", except: [:index, :show]
-
   def index
     @articles = Article.all
   end
@@ -21,6 +19,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
 
     if @article.save
+      @article.find_and_create_tags
       redirect_to @article
     else
       render 'new'
@@ -31,6 +30,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
 
     if @article.update(article_params)
+      @article.find_and_create_tags
       redirect_to @article
     else
       render 'edit'

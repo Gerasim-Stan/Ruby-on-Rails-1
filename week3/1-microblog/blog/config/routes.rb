@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root" 
  
+  get 'search/:term', to: 'tags#index'
   resources :articles do
     resources :comments
   end
