@@ -14,13 +14,13 @@
 </head>
 
 <body>
-  <% posts.each do |p| %>
+  <% posts.each do |post| %>
     <div class="page-header" name ="title" style="margin: 20px 10px 10px 50px; text-align:left; width: 500px">
-      <%= p[1].title %>
+      <%= post.title %>
     </div>
     <br />
     <div class="lead" name="bodey" style="margin: 10px 10px 0px 50px; text-align:left">
-      <%= p[1].body %>
+      <%= post.body %>
     </div>
     <br />
   <% end %>

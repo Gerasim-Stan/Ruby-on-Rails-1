@@ -2,26 +2,30 @@ require 'sinatra'
 require 'erubis'
 require 'sinatra/contrib'
 require 'sinatra/base'
+require 'sqlite3'
 set :erb, :escape_html => true
 
 class Post
-  attr_accessor :title, :body
+  attr_accessor :id, :title, :body
 
-  def initialize(title: nil, body: nil)
+  def initialize(id: nil, title: nil, body: nil)
+    @id    = id
     @title = title if title.length > 1
     @body  = body  if (1..256).include? body.length
   end
-
-
 end
 
-ids = 0
-posts = {}
-posts[(ids += 1).to_s] = Post.new(title: 'Wee', body: 'Amazing blog post! Beware, peasants!')
-p posts
+def update_from_db
+  posts = []
+  db = SQLite3::Database.new "sinatra_microblog.db"
+  db.execute( "select * from posts" ) do |id, title, body|
+    posts << Post.new(id: id, title: title, body: body)
+  end
+  posts
+end
 
 get '/' do
-  erb :index, :locals => {:posts => posts}
+  erb :index, :locals => {:posts => update_from_db }
 end
 
 get '/new' do
@@ -29,26 +33,29 @@ get '/new' do
 end
 
 post '/new' do
-  posts[(posts.keys.sort.last.to_i + 1).to_s] = Post.new(title: request.POST['title'].strip, body: request.POST['body'].strip)
+  seq = db.execute "SELECT seq FROM SQLITE_SEQUENCE"
+  db.execute "insert into posts values(?, ?, ?)", seq.last[0].to_i + 1, request.POST['title'].strip, request.POST['body'].strip
   redirect '/posts'
 end
 
 get '/:id' do |id|
-  p params
-  return redirect '/' if id == 'posts'
-  return "There's no post with #{id} for id present, m'lady *tips fedora*." if posts[id].nil?
-  erb :show, :locals => {:post => posts[id], id: id}
+  return redirect '/' if id.to_s == 'posts'
+  return "There's no post with #{id} for id present, m'lady *tips fedora*." if update_from_db.none? { |post| post.id == id.to_i }
+  erb :show, :locals => {:post => update_from_db.detect { |post| post.id == id.to_i }, id: id.to_i}
 end
 
 get '/posts' do
-  erb :index, :locals => {:posts => posts}
+  erb :index, :locals => {:posts => update_from_db}
 end
 
 get '/:id/delete' do |id|
-  erb :delete, :locals => {:post => posts[id.to_s], :id => id}
+  erb :delete, :locals => {:post => update_from_db.detect { |post| post.id == id.to_i }, :id => id}
 end
 
 delete("/:id") do |id|
-  posts.delete(id)
+  db.execute "delete from posts where id = ?", id.to_i
+  p id
+  p db.execute "select id from posts"
   redirect "/"
 end
+
