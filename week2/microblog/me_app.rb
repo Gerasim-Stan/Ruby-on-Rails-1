@@ -15,6 +15,17 @@ class Post
   end
 end
 
+class Tag
+  attr_accessor :id, :tag
+
+  def initialize(id:, tag:)
+    @id  = id
+    @tag = tag
+  end
+end
+
+db = SQLite3::Database.new "sinatra_microblog.db"
+
 def update_from_db
   posts = []
   db = SQLite3::Database.new "sinatra_microblog.db"
@@ -24,17 +35,28 @@ def update_from_db
   posts
 end
 
+def find_and_create_tags(text)
+  body_scan = text.scan(/#[@|@@|\$]?\w+/)
+  body_scan.each do |tag|
+    db = SQLite3::Database.new "sinatra_microblog.db"
+    seq = db.execute "SELECT seq FROM SQLITE_SEQUENCE"
+    db.execute "insert into tags values(?, ?)", seq.last[0].to_i + 1, tag[1..-1]
+  end
+end
+
+
 get '/' do
   erb :index, :locals => {:posts => update_from_db }
 end
 
 get '/new' do
-  erb :new, :locals => {:posts => posts}
+  erb :new, :locals => {:posts => update_from_db}
 end
 
 post '/new' do
   seq = db.execute "SELECT seq FROM SQLITE_SEQUENCE"
   db.execute "insert into posts values(?, ?, ?)", seq.last[0].to_i + 1, request.POST['title'].strip, request.POST['body'].strip
+  find_and_create_tags(request.POST['body'])
   redirect '/posts'
 end
 
@@ -54,8 +76,7 @@ end
 
 delete("/:id") do |id|
   db.execute "delete from posts where id = ?", id.to_i
-  p id
-  p db.execute "select id from posts"
+  db.execute "select id from posts"
   redirect "/"
 end
 

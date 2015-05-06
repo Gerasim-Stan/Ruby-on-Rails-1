@@ -32,3 +32,4 @@ Week | Material
 
 [Hack Bulgaria]: http://hackbulgaria.com
 [Core Ruby]: http://ruby.hackbulgaria.com
+
