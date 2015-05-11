@@ -1,0 +1,2 @@
+module SolutionsControllerHelper
+end

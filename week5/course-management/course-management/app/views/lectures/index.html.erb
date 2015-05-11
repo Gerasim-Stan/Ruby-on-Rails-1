@@ -1,0 +1,16 @@
+<h1>Listing all lectures</h1>
+
+<table class="table">
+  <thead>
+    <th>Lecture number</th>
+    <th>Lecture name</th>
+    <th>Lecture body</th>
+  </thead>
+  <tbody>
+    <% @lectures.each do |lecture| %>
+      <td><%= lecture.id %></td>
+      <td><%= lecture.name %></td>
+      <td><%= lecture.body %></td>
+    <% end %>
+  </tbody>
+</table>
