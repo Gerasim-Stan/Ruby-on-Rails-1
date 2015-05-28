@@ -1,0 +1,9 @@
+<div class="Sign_in_Form">
+  <h1>Sign In</h1>
+  <%= form_for(:user) do |f| %>
+    <p> Email:<br/ > <%= f.text_field :email %> </p>
+    <p> Password:<br/ > <%= f.password_field :password_hash %></p>
+    <p> <%= f.check_box 'remember_me' %> Remember me? </p>
+    <%= f.submit 'Sign in' %>
+  <% end %>
+</div>
